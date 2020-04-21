@@ -71,12 +71,12 @@ public class OperationHandler {
         return this.opY;
     }
 
-    public double getopNum() {
+    public double getOpNum() {
         return this.opNumber;
     }
 
     public boolean isset() {
-        if ( getX() == -1 || getY() == -1 || getopNum() == -1 )
+        if ( getX() == -1 || getY() == -1 || getOpNum() == -1 )
             return false;
         else
             return true;

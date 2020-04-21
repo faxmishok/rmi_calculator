@@ -1,28 +1,27 @@
 import javax.swing.*;
+import javax.swing.text.NumberFormatter;
 import java.awt.event.*;
+import java.text.NumberFormat;
 
 
-public class Calc implements ActionListener {
+public class App implements ActionListener {
 
     OperationHandler calc;
 
     int opPressed;
-    String opPressedMsg;
-
 
     JFrame f;
     JTextField t;
     JButton b1,b2,b3,b4,b5,b6,b7,b8,b9,b0,bAdd,bSub,bMult,bDiv,bClr,bDec,bDel,bEq;
 
 
-    public Calc() {
+    public App() {
 
         opPressed = 0;
-        opPressedMsg = "You can only do one-step calculations!";
 
-        calc = new OperationHandler(); // initialize a calculator object to calculate
+        calc = new OperationHandler(); // initialize a calculator to proceed with operations
         f = new JFrame("Calculator App");
-        t = new JTextField();
+        t = new JTextField("");
         b1 = new JButton("1");
         b2 = new JButton("2");
         b3 = new JButton("3");
@@ -90,7 +89,7 @@ public class Calc implements ActionListener {
         f.setVisible(true);
         f.setSize(350,500);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setResizable(false);
+        f.setResizable(true);
         f.setLocationRelativeTo(null); // to center the window
 
         b1.addActionListener(this);
@@ -113,8 +112,8 @@ public class Calc implements ActionListener {
         bClr.addActionListener(this);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
-
         if(e.getSource() == b1)
             t.setText(t.getText().concat("1"));
 
@@ -125,7 +124,7 @@ public class Calc implements ActionListener {
             t.setText(t.getText().concat("3"));
 
         if(e.getSource() == b4)
-            t.setText(t.getText().concat("4"));
+            t.setText(t. getText().concat("4"));
 
         if(e.getSource() == b5)
             t.setText(t.getText().concat("5"));
@@ -150,13 +149,18 @@ public class Calc implements ActionListener {
 
         if(e.getSource() == bAdd) {
             if ( opPressed == 0 ) {
-                calc.opX = Double.parseDouble(t.getText());
-                calc.opNumber = 1;
-                t.setText(t.getText().concat("+"));
-                opPressed = 1;
+                if ( val != null ){
+                    calc.opX = val;
+                    calc.opNumber = 1;
+                    t.setText(t.getText().concat("+"));
+                    opPressed = 1;
+                } else {
+                    JOptionPane.showMessageDialog(f, "Please enter a value first!");
+                }
+
             }
             else
-                JOptionPane.showMessageDialog(f, opPressedMsg);
+                JOptionPane.showMessageDialog(f, "You can only do one-step calculations!");
         }
 
         if(e.getSource() == bSub) {
@@ -167,7 +171,7 @@ public class Calc implements ActionListener {
                 opPressed = 1;
             }
             else
-                JOptionPane.showMessageDialog(f, opPressedMsg);
+                JOptionPane.showMessageDialog(f, "You can only do one-step calculations!");
         }
 
         if(e.getSource() == bMult) {
@@ -178,7 +182,7 @@ public class Calc implements ActionListener {
                 opPressed = 1;
             }
             else
-                JOptionPane.showMessageDialog(f, opPressedMsg);
+                JOptionPane.showMessageDialog(f, "You can only do one-step calculations!");
         }
 
         if(e.getSource() == bDiv) {
@@ -189,21 +193,27 @@ public class Calc implements ActionListener {
                 opPressed = 1;
             }
             else
-                JOptionPane.showMessageDialog(f, opPressedMsg);
+                JOptionPane.showMessageDialog(f, "You can only do one-step calculations!");
 
         }
 
         if(e.getSource() == bEq) {
-            calc.opY = Double.parseDouble(t.getText().split("\\+|\\-|\\×|\\/")[1]);
-            if ( calc.isset() ) {
-                calc.calculate();
+            if ( opPressed == 1 ){
+                calc.opY = Double.parseDouble(t.getText().split("\\+|\\-|\\×|\\/")[1]);
+                if ( calc.isset() ) {
+                    calc.calculate();
+                }
+                t.setText("" + calc.result);
             }
-            t.setText("" + calc.result);
+            else { JOptionPane.showMessageDialog(f, "But you haven't done any operations."); }
             opPressed = 0;
         }
 
-        if(e.getSource() == bClr)
+        if(e.getSource() == bClr){
             t.setText("");
+            opPressed = 0;
+        }
+
 
         if(e.getSource() == bDel) {
             String s = t.getText(); //save it for later use inside loop
@@ -215,8 +225,7 @@ public class Calc implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new Calc();
+        App c = new App();
     }
-
 
 }
