@@ -3,12 +3,7 @@ public class OperationHandler {
     double opX,opY,result;
     int opNumber;
 
-    public OperationHandler(){
-        this.opX = -1;
-        this.opY = -1;
-        this.opNumber = -1;
-        this.result = -1;
-    }
+    public OperationHandler(){  }
 
     public OperationHandler(double x, double y, int num){
         this.opX = x;
