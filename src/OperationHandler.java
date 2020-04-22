@@ -31,7 +31,7 @@ public class OperationHandler {
 
         else if ( this.opNumber == 4 ) {
             if ( this.opY == 0 ) {
-                System.out.println("Error. Division by 0!");
+                System.out.println("Error. Division by 0!\nReturning -1");
                 this.result = -1;
             }
             else this.result = this.opX/this.opY;

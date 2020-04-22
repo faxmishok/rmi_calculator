@@ -1,14 +1,12 @@
 import javax.swing.*;
-import javax.swing.text.NumberFormatter;
 import java.awt.event.*;
-import java.text.NumberFormat;
 
 
 public class App implements ActionListener {
 
     OperationHandler calc;
 
-    int opPressed;
+    int opPressed, numPressed, decPressed;
 
     JFrame f;
     JTextField t;
@@ -17,7 +15,10 @@ public class App implements ActionListener {
 
     public App() {
 
+
         opPressed = 0;
+        numPressed = 0;
+        decPressed = 0;
 
         calc = new OperationHandler(); // initialize a calculator to proceed with operations
         f = new JFrame("Calculator App");
@@ -114,104 +115,143 @@ public class App implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == b1)
+        if(e.getSource() == b1) {
             t.setText(t.getText().concat("1"));
+            numPressed++;
+        }
 
-        if(e.getSource() == b2)
+        if(e.getSource() == b2) {
             t.setText(t.getText().concat("2"));
+            numPressed++;
+        }
 
-        if(e.getSource() == b3)
+        if(e.getSource() == b3) {
             t.setText(t.getText().concat("3"));
+            numPressed++;
+        }
 
-        if(e.getSource() == b4)
+        if(e.getSource() == b4) {
             t.setText(t. getText().concat("4"));
+            numPressed++;
+        }
 
-        if(e.getSource() == b5)
+
+        if(e.getSource() == b5) {
             t.setText(t.getText().concat("5"));
+            numPressed++;
+        }
 
-        if(e.getSource() == b6)
+        if(e.getSource() == b6) {
             t.setText(t.getText().concat("6"));
+            numPressed++;
+        }
 
-        if(e.getSource() == b7)
+        if(e.getSource() == b7) {
             t.setText(t.getText().concat("7"));
+            numPressed++;
+        }
 
-        if(e.getSource() == b8)
+        if(e.getSource() == b8) {
             t.setText(t.getText().concat("8"));
+            numPressed++;
+        }
 
-        if(e.getSource() == b9)
+        if(e.getSource() == b9) {
             t.setText(t.getText().concat("9"));
+            numPressed++;
+        }
 
-        if(e.getSource() == b0)
+        if(e.getSource() == b0) {
             t.setText(t.getText().concat("0"));
+            numPressed++;
+        }
 
-        if(e.getSource() == bDec)
-            t.setText(t.getText().concat("."));
+        if(e.getSource() == bDec){
+            if ( numPressed != 0 && decPressed == 0 ) {
+                t.setText(t.getText().concat("."));
+                decPressed++;
+            }
+            else {  }
+        }
 
         if(e.getSource() == bAdd) {
-            if ( opPressed == 0 ) {
-                if ( val != null ){
-                    calc.opX = val;
+            if ( numPressed != 0 ) {
+                if ( opPressed == 0 ) {
+                    calc.opX = Double.parseDouble(t.getText());
                     calc.opNumber = 1;
                     t.setText(t.getText().concat("+"));
                     opPressed = 1;
-                } else {
-                    JOptionPane.showMessageDialog(f, "Please enter a value first!");
+                    numPressed = 0;
+                    decPressed = 0;
                 }
-
-            }
-            else
-                JOptionPane.showMessageDialog(f, "You can only do one-step calculations!");
+                else
+                    JOptionPane.showMessageDialog(f, "You can only do one-step calculations!");
+            } else {  }
         }
 
         if(e.getSource() == bSub) {
-            if ( opPressed == 0 ) {
-                calc.opX = Double.parseDouble(t.getText());
-                calc.opNumber = 2;
-                t.setText(t.getText().concat("-"));
-                opPressed = 1;
-            }
-            else
-                JOptionPane.showMessageDialog(f, "You can only do one-step calculations!");
+            if ( numPressed != 0 ) {
+                if ( opPressed == 0 ) {
+                    calc.opX = Double.parseDouble(t.getText());
+                    calc.opNumber = 2;
+                    t.setText(t.getText().concat("-"));
+                    opPressed = 1;
+                    numPressed = 0;
+                    decPressed = 0;
+                }
+                else
+                    JOptionPane.showMessageDialog(f, "You can only do one-step calculations!");
+            } else {  }
         }
 
         if(e.getSource() == bMult) {
-            if ( opPressed == 0 ) {
-                calc.opX = Double.parseDouble(t.getText());
-                calc.opNumber = 3;
-                t.setText(t.getText().concat("×"));
-                opPressed = 1;
-            }
-            else
-                JOptionPane.showMessageDialog(f, "You can only do one-step calculations!");
+            if ( numPressed != 0 ) {
+                if ( opPressed == 0 ) {
+                    calc.opX = Double.parseDouble(t.getText());
+                    calc.opNumber = 3;
+                    t.setText(t.getText().concat("×"));
+                    opPressed = 1;
+                    numPressed = 0;
+                    decPressed = 0;
+                }
+                else
+                    JOptionPane.showMessageDialog(f, "You can only do one-step calculations!");
+            } else {  }
         }
 
         if(e.getSource() == bDiv) {
-            if ( opPressed == 0 ) {
-                calc.opX = Double.parseDouble(t.getText());
-                calc.opNumber = 4;
-                t.setText(t.getText().concat("/"));
-                opPressed = 1;
-            }
-            else
-                JOptionPane.showMessageDialog(f, "You can only do one-step calculations!");
-
+            if ( numPressed != 0 ) {
+                if ( opPressed == 0 ) {
+                    calc.opX = Double.parseDouble(t.getText());
+                    calc.opNumber = 4;
+                    t.setText(t.getText().concat("/"));
+                    opPressed = 1;
+                    numPressed = 0;
+                    decPressed = 0;
+                }
+                else
+                    JOptionPane.showMessageDialog(f, "You can only do one-step calculations!");
+            } else {  }
         }
 
         if(e.getSource() == bEq) {
-            if ( opPressed == 1 ){
+            if ( opPressed == 1 && numPressed != 0) {
                 calc.opY = Double.parseDouble(t.getText().split("\\+|\\-|\\×|\\/")[1]);
                 if ( calc.isset() ) {
                     calc.calculate();
                 }
                 t.setText("" + calc.result);
+                opPressed = 0;
+                decPressed = 1;
             }
-            else { JOptionPane.showMessageDialog(f, "But you haven't done any operations."); }
-            opPressed = 0;
+            else {  }
+
         }
 
         if(e.getSource() == bClr){
             t.setText("");
             opPressed = 0;
+            numPressed = 0;
         }
 
 
@@ -225,7 +265,7 @@ public class App implements ActionListener {
     }
 
     public static void main(String[] args) {
-        App c = new App();
+        App app = new App();
     }
 
 }
