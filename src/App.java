@@ -1,8 +1,12 @@
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.Serializable;
+
+import java.rmi.RemoteException;
+import java.rmi.Remote;
 
 
-public class App implements ActionListener {
+public class App implements ActionListener,Ap {
 
     OperationHandler calc;
 
@@ -264,8 +268,8 @@ public class App implements ActionListener {
 
     }
 
-    public static void main(String[] args) {
-        App app = new App();
-    }
+//    public static void main(String[] args) {
+//      //   App app = new App();
+//    }
 
 }

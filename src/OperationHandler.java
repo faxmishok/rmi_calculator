@@ -1,4 +1,6 @@
-public class OperationHandler {
+import java.io.Serializable;
+
+public class OperationHandler implements Serializable {
 
     double opX,opY,result;
     int opNumber;
