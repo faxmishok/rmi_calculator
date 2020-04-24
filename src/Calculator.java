@@ -9,7 +9,6 @@ public class Calculator implements ActionListener {
 
     OperationHandler calc;
 
-
     boolean opPressed, numPressed, decPressed;      // operator staters that's what we call them, explained inside the constructor
 
     JFrame f;
@@ -19,13 +18,10 @@ public class Calculator implements ActionListener {
 
     public Calculator() {
 
-        // this.calc = calcul;
-
         opPressed = false;      // this operator staters will be used
         numPressed = false;     // inside overridden actionPerformed()
         decPressed = false;     // to set the correct priority for calculator Calculator
 
-       //  calc = new OperationHandlerImplementation();              // initialize a calculator to proceed with operations
         f = new JFrame("Calculator Calculator");
         t = new JTextField("");                     // this will be representing calculation monitor
         b1 = new JButton("1");
@@ -94,7 +90,7 @@ public class Calculator implements ActionListener {
         f.setLayout(null);
         f.setVisible(true);
         f.setSize(350,500);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // to close when clicking EXIT
         f.setResizable(true);
         f.setLocationRelativeTo(null); // to center the Calculator window
 
@@ -180,18 +176,13 @@ public class Calculator implements ActionListener {
 
         if(e.getSource() == bAdd) {
             if ( numPressed ) {         // so this is Calculatorlied to all operator buttons simply to press any operator key a number has to be pressed first
-                if ( !opPressed ) {                                 // this is Calculatorlied to all operators as well and
-                   // calc.opX = Double.parseDouble(t.getText());// simply this is to prevent user from pressing 2 different or same operator keys
-                   //  calcul
-                   //  calc.opNumber = 1;                              // pressed without having a number entered first.
-
+                if ( !opPressed ) {     // this is Calculatorlied to all operators as well and simply this is to prevent user from pressing 2 different or same operator keys
                     try {
                         calc.setX(Double.parseDouble(t.getText()));
-                        calc.setOpNumber(1);
+                        calc.setOpNumber(1);  // pressed without having a number entered first.
                     } catch (RemoteException ex) {
                         ex.printStackTrace();
                     }
-
                     t.setText(t.getText().concat("+"));
                     opPressed = true;           // this stater is set to true to prevent from being pressed more than once
                     numPressed = false;         // to satisfy the condition of any operator keys.
@@ -199,23 +190,19 @@ public class Calculator implements ActionListener {
                 }
                 else
                     JOptionPane.showMessageDialog(f, "You can only do one-step calculations!");
-            } else {  }        // so in all these 4 (+:-:×:/) opeartions we do the same steps as mentioned above with comments,
+            } else {  }        // so in all these 4 (+:-:×:/) operations we do the same steps as mentioned above with comments,
         }                      // and the reason why we used nested if's is that in second if's else part we want to do give an alert message
                                 //  where in the first if's else (general else) we don't want to do anything
 
          if(e.getSource() == bSub) {
             if ( numPressed ) {
                 if ( !opPressed ) {
-
-                   // calc.opX = Double.parseDouble(t.getText());
-                   // calc.opNumber = 2;
                     try {
                         calc.setX(Double.parseDouble(t.getText()));
                         calc.setOpNumber(2);
                     } catch (RemoteException ex) {
                         ex.printStackTrace();
                     }
-
                     t.setText(t.getText().concat("-"));
                     opPressed = true;
                     numPressed = false;
@@ -229,17 +216,12 @@ public class Calculator implements ActionListener {
         if(e.getSource() == bMult) {
             if ( numPressed ) {
                 if ( !opPressed ) {
-//                    calc.opX = Double.parseDouble(t.getText());
-//                    calc.opNumber = 3;
-
                     try {
                         calc.setX(Double.parseDouble(t.getText()));
                         calc.setOpNumber(3);
                     } catch (RemoteException ex) {
                         ex.printStackTrace();
                     }
-
-
                     t.setText(t.getText().concat("×"));
                     opPressed = true;
                     numPressed = false;
@@ -253,9 +235,6 @@ public class Calculator implements ActionListener {
         if(e.getSource() == bDiv) {
             if ( numPressed ) {
                 if ( !opPressed ) {
-//                    calc.opX = Double.parseDouble(t.getText());
-//                    calc.opNumber = 4;
-
                     try {
                         calc.setX(Double.parseDouble(t.getText()));
                         calc.setOpNumber(4);
@@ -273,7 +252,7 @@ public class Calculator implements ActionListener {
             } else {  }
         }
 
-        if(e.getSource() == bEq) {// So equal button is a bit different from that of operation key buttons that's why seperate comments for it
+        if(e.getSource() == bEq) { // So equal button is a bit different from that of operation key buttons that's why seperate comments for it
 
             if ( opPressed && numPressed ) {// Here we check if the operation button and any number is pressed, then do the steps
                 try {
@@ -285,19 +264,16 @@ public class Calculator implements ActionListener {
                         t.setText("Error");
 
                     }
-                     else if ( calc.isset() ) { // to check if operands and operation Number is set       // but while parsing, we need to take the number before the operator sign so we combined parseDouble() and split function
-//                        calc.calculate(); // calculate function is invoked to calculate             // and added the regex which simply means either + or one of these - , × , / signs.
-//                        if ( calc.getResult() == -1 )    JOptionPane.showMessageDialog(f, "Exception : Division by Zero!\nReturning -1.");
-                         calc.setReady(true);
-   //                      if ( calc.getResult() == -1 )
-
+                     else if ( calc.isset() ) {   // to check if operands and operation Number is set
+                                                 // but while parsing, we need to take the number before the operator sign so we combined parseDouble() and split function
+                                                // and added the regex which simply means either + or one of these - , × , / signs.
+                         calc.setReady(true); // in Client side it checks if Ready is true -> it invokes calculation
                       }
-//
-//                    t.setText("" + calc.getResult());
+
                 } catch (RemoteException ex) {
                     ex.printStackTrace();
                 }
-                opPressed = false;   // after calculation is done, operator stater can be set to false to further allow user to enter one of operators
+                opPressed = false;   // operator stater can be set to false to further allow user to enter one of operators
                 decPressed = true;   // the same implies to decimal stater
             }
             else {  }
@@ -311,7 +287,7 @@ public class Calculator implements ActionListener {
         }
 
         if(e.getSource() == bDel) {
-            String s = t.getText(); //save it for later use inside loop
+            String s = t.getText();  //save it for later use inside loop
             t.setText("");
             for(int i = 0 ; i < s.length()-1 ; i++)
                 t.setText(t.getText() + s.charAt(i));
@@ -320,7 +296,6 @@ public class Calculator implements ActionListener {
     }
 
     public static void main(String[] args) {
-       // Calculator Calculator = new Calculator();      // creating an instance of the class is enough to make the whole program to work as everything is handled through Constructor (and as it extends JPanel)
     }
 
 }

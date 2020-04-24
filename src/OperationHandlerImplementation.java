@@ -21,7 +21,7 @@ public class OperationHandlerImplementation implements Serializable, OperationHa
 
         else if ( this.opNumber == 2 ) {
             if ( this.opX - this.opY > 0 )	this.result = this.opX-this.opY;
-            else 							this.result = this.opY-this.opX;
+            else 							this.result = this.opY-this.opX; // to return positive result
         }
 
         else if ( this.opNumber == 3 )
@@ -29,7 +29,7 @@ public class OperationHandlerImplementation implements Serializable, OperationHa
 
         else if ( this.opNumber == 4 ) {
             if ( this.opY == 0 ) {
-                System.out.println("Error. Division by 0!\nReturning -1");
+                System.out.println("Error. Division by 0!");
                 this.result = -1;
             }
             else this.result = this.opX/this.opY;
