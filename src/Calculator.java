@@ -1,14 +1,13 @@
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.Serializable;
 
 import java.rmi.RemoteException;
 import java.rmi.Remote;
 
 
-public class App implements ActionListener, Ap {
+public class Calculator implements ActionListener {
 
-    OpHand calc;
+    OperationHandler calc;
 
 
     boolean opPressed, numPressed, decPressed;      // operator staters that's what we call them, explained inside the constructor
@@ -18,16 +17,16 @@ public class App implements ActionListener, Ap {
     JButton b1,b2,b3,b4,b5,b6,b7,b8,b9,b0,bAdd,bSub,bMult,bDiv,bClr,bDec,bDel,bEq;
 
 
-    public App() {
+    public Calculator() {
 
         // this.calc = calcul;
 
         opPressed = false;      // this operator staters will be used
         numPressed = false;     // inside overridden actionPerformed()
-        decPressed = false;     // to set the correct priority for calculator app
+        decPressed = false;     // to set the correct priority for calculator Calculator
 
-       //  calc = new OperationHandler();              // initialize a calculator to proceed with operations
-        f = new JFrame("Calculator App");
+       //  calc = new OperationHandlerImplementation();              // initialize a calculator to proceed with operations
+        f = new JFrame("Calculator Calculator");
         t = new JTextField("");                     // this will be representing calculation monitor
         b1 = new JButton("1");
         b2 = new JButton("2");
@@ -97,7 +96,7 @@ public class App implements ActionListener, Ap {
         f.setSize(350,500);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setResizable(true);
-        f.setLocationRelativeTo(null); // to center the app window
+        f.setLocationRelativeTo(null); // to center the Calculator window
 
         b1.addActionListener(this);
         b2.addActionListener(this);
@@ -180,8 +179,8 @@ public class App implements ActionListener, Ap {
         }
 
         if(e.getSource() == bAdd) {
-            if ( numPressed ) {         // so this is applied to all operator buttons simply to press any operator key a number has to be pressed first
-                if ( !opPressed ) {                                 // this is applied to all operators as well and
+            if ( numPressed ) {         // so this is Calculatorlied to all operator buttons simply to press any operator key a number has to be pressed first
+                if ( !opPressed ) {                                 // this is Calculatorlied to all operators as well and
                    // calc.opX = Double.parseDouble(t.getText());// simply this is to prevent user from pressing 2 different or same operator keys
                    //  calcul
                    //  calc.opNumber = 1;                              // pressed without having a number entered first.
@@ -280,8 +279,13 @@ public class App implements ActionListener, Ap {
                 try {
 
                             calc.setY(Double.parseDouble(t.getText().split("\\+|\\-|\\×|\\/")[1]));   // so after = is pressed, second operand has to be set but since we use textfield we need to parse it to double
-                    if(calc.getY()== 0 && calc.getOpNum()==4)  JOptionPane.showMessageDialog(f, "Exception : Division by Zero!\nReturning -1.");
-                        if ( calc.isset() ) { // to check if operands and operation Number is set       // but while parsing, we need to take the number before the operator sign so we combined parseDouble() and split function
+                    if(calc.getY()== 0 && calc.getOpNum()==4) {
+
+                        JOptionPane.showMessageDialog(f, "Exception : Division by Zero!\n");
+                        t.setText("Error");
+
+                    }
+                     else if ( calc.isset() ) { // to check if operands and operation Number is set       // but while parsing, we need to take the number before the operator sign so we combined parseDouble() and split function
 //                        calc.calculate(); // calculate function is invoked to calculate             // and added the regex which simply means either + or one of these - , × , / signs.
 //                        if ( calc.getResult() == -1 )    JOptionPane.showMessageDialog(f, "Exception : Division by Zero!\nReturning -1.");
                          calc.setReady(true);
@@ -316,7 +320,7 @@ public class App implements ActionListener, Ap {
     }
 
     public static void main(String[] args) {
-       // App app = new App();      // creating an instance of the class is enough to make the whole program to work as everything is handled through Constructor (and as it extends JPanel)
+       // Calculator Calculator = new Calculator();      // creating an instance of the class is enough to make the whole program to work as everything is handled through Constructor (and as it extends JPanel)
     }
 
 }

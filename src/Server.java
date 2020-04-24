@@ -9,8 +9,8 @@ public class Server {
         if(args.length==1)
             port = Integer.parseInt(args[0]);
         try {
-           // Ap skeleton = (Ap)UnicastRemoteObject.exportObject(new App(), 0);
-            OpHand skeleton = (OpHand) UnicastRemoteObject.exportObject(new OperationHandler(),0);
+           // Ap skeleton = (Ap)UnicastRemoteObject.exportObject(new Calculator(), 0);
+            OperationHandler skeleton = (OperationHandler) UnicastRemoteObject.exportObject(new OperationHandlerImplementation(),0);
 
             Registry registry = LocateRegistry.getRegistry(port);
             if(!Arrays.asList(registry.list()).contains("Calculator"))
