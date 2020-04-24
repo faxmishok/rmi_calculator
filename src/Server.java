@@ -9,13 +9,15 @@ public class Server {
         if(args.length==1)
             port = Integer.parseInt(args[0]);
         try {
-            Ap skeleton = (Ap)UnicastRemoteObject.exportObject(new App(), 0);
+           // Ap skeleton = (Ap)UnicastRemoteObject.exportObject(new App(), 0);
+            OpHand skeleton = (OpHand) UnicastRemoteObject.exportObject(new OperationHandler(),0);
+
             Registry registry = LocateRegistry.getRegistry(port);
             if(!Arrays.asList(registry.list()).contains("Calculator"))
                 registry.bind("Calculator", skeleton);
             else
                 registry.rebind("Calculator", skeleton);
-            // System.out.println();
+             System.out.println("Haziram Brat");
         } catch(Exception e) {
             //System.out.println(e);
             e.printStackTrace();

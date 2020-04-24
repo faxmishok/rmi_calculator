@@ -1,7 +1,10 @@
-public class OperationHandler {
+import java.io.Serializable;
 
-    double opX,opY,result;
-    int opNumber;
+public class OperationHandler implements Serializable, OpHand {
+
+    double opX=-1,opY=-1,result;
+    int opNumber=-1;
+    boolean ready=false;
 
     public OperationHandler(){  }
 
@@ -58,6 +61,26 @@ public class OperationHandler {
     } // calculate() with args
 
 
+
+    public void setX(double opX) {
+        this.opX = opX;
+    }
+
+    public void setY(double opY) {
+        this.opY = opY;
+    }
+
+    public void setResult(double result) {
+        this.result = result;
+    }
+
+    public void setOpNumber(int opNumber) {
+        this.opNumber = opNumber;
+    }
+
+    public void setReady(boolean ready) { this.ready = ready; }
+
+
     public double getX() {
         return this.opX;
     }
@@ -66,9 +89,18 @@ public class OperationHandler {
         return this.opY;
     }
 
+    public double getResult() { return this.result; }
+
     public double getOpNum() {
         return this.opNumber;
     }
+
+    public boolean getReady() {
+        return this.ready;
+    }
+
+
+
 
     public boolean isset() {
         if ( getX() == -1 || getY() == -1 || getOpNum() == -1 )
